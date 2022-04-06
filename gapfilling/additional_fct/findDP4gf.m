@@ -44,10 +44,9 @@ if (nargin < 6)
 end
 if (nargin < 7)
     filename = 'gf';
-    path = '/Users/evangelia/Documents/MATLAB/gapflling paper/outputs/';
+        path = './outputs/';
 end
-filename = 'gf';
-    path = '/Users/evangelia/Documents/MATLAB/gapflling paper/outputs/';
+
 % if ~(ismember(model.constraintNames,'CUTsize'))
 %     [NumCons,NumVars] = size(model.A);
 %     NewCons = zeros(NumVars,1);
