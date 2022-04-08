@@ -1,5 +1,5 @@
 
-addpath(genpath('/yourPath/gapfillingRepo/'))
+addpath(genpath('/yourPath/NICEgame/'))
 addpath(genpath('/yourPath/cobratoolbox/'))
 
 % load one of the DBs
@@ -9,11 +9,11 @@ DBmodel = model;
 load('./yourPath/model.mat')
 sourceModel = ;
 organism_id = '';
-% thermo?
+% thermo? if yes flagTFA = 1, if no flagTFA = 0
 flagTFA = 1;
 thermo_data = yourthermoDB; %{} if no thermo
 
-%% to produce one BBB
+%% Check what are the biomass buidling blocks that cannot be porduced
 obj = find(model.c);
 bbbs_m = model.mets(find(model.S(:,find(model.c))<0));
 r = length(model.rxns);
@@ -55,6 +55,7 @@ GFmodel.var_ub(f) = 50;
 % I suggest that you gap-fill per BBB for small scale gap-filling
 % repeat for each "problematic BBB"
 GFmodeli = GFmodel;
+
 GFmodeli.var_ub(find(ismember(GFmodeli.varNames,strcat('F_DM_',bbbs_m)))) = 50;
 GFmodeli.var_ub(find(ismember(GFmodeli.varNames,strcat('NF_DM_',bbbs_m)))) = 50;
 
@@ -65,11 +66,12 @@ NumAlt = 10000;
 tagMin = 1; % solutions of min size
 tagMinP1 = 1;  % solutions of min +1 size
 tagSave = 1;
+time = 600; % time limit for the solver in seconds
 filename = './gf.mat';
 indUSE = GFmodeli.indUSE;
 mingrRate = 0.01; % force growth rate if you want to gap-fill for each bbb then mingrRate = 0
 rxnsToCheck = {};
-[ActRxns, GFSumRes, DPsAll] = gapFilling(model,indUSE,NumAlt,mingrRate,rxnsToCheck,tagMin,time,filename)
-save(stract(/youpath/,'GF_',organism_id,'.mat'),'resultStat','ActRxns','DPsAll')
+[ActRxns, GFSumRes, DPsAll] = gapFilling(GFmodeli,indUSE,NumAlt,mingrRate,rxnsToCheck,tagMin,time,filename)
+save(strcat('/youpath/,GF_',organism_id,'.mat'),'ActRxns','DPsAll')
 %% generate merged model with thermodynamic constarints for evaluation of alternatives
 [GFmodel, conflict] = PrepareForGapFillingThermo(sourceModel, {DBmodel},'', 0,flagTFA,{},[],thermo_data);
