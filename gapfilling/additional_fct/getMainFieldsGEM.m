@@ -28,7 +28,7 @@ newmodel.S = model.S;
 if isfield(model,'metCharge')
     newmodel.metCharge = model.metCharge;
 else
-    newmodel.metCharge = cell(length(model.mets),1);
+    newmodel.metCharge = zeros(length(model.mets),1);
 end
 if isfield(model,'metFormulas')
     newmodel.metFormulas = model.metFormulas;
