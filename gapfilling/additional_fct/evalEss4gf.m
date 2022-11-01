@@ -20,10 +20,11 @@ else
 end
 
 changeCobraSolver('cplex_direct','LP');
-sol = optimizeCbModel(sourceModel);
-newModel.growthWT = sol.f;
+
 
 if (flagEss)
+    sol = optimizeCbModel(sourceModel);
+    newModel.growthWT = sol.f;
     fprintf('Reaction essentiality in sourceModel\n');
     [grRatio] = singleRxnDeletionTasks(sourceModel, method, sourceModel.rxns);
     essRxnWT = sourceModel.rxns(grRatio < essThr);
