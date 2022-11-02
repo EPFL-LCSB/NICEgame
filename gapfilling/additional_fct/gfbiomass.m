@@ -23,7 +23,7 @@ if (nargin < 7)
 end
 if (nargin < 8)
     filename = 'gf';
-    path = '/home/achiappi/gapfilling/outputs/'; % for cluster
+    path = './'; 
 end
 if (nargin < 9)
     DPsi = [];
@@ -35,7 +35,7 @@ DPsAll = cell(1,1);
 DPs = [];
 arxns = {};
 
-sol = solveTFAmodelCplex(model,300);
+sol = solveTFAmodelCplex(model,time);
 
 resultStat{1,2} = 'biomass'; % store status for biomass
 if ~isempty(sol.x)
