@@ -65,7 +65,7 @@ model.f(indUSE) = 1;
 if ~isempty(rxnsToCheck)
     [resultStat,ActRxns,DPsAll] = gfRxns(model,rxnsToCheck,indUSE,NumAlt,time,tagMin);
 else
-    [resultStat,ActRxns,DPsAll] = gfbiomass(model,indUSE,1,time,tagMin);
+    [resultStat,ActRxns,DPsAll] = gfbiomass(model,indUSE,NumAlt,time,tagMin);
 end
 
 GFSumRes = cell(length(ActRxns),1);
