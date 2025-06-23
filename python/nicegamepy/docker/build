@@ -1,0 +1,2 @@
+#!/bin/sh
+docker build -t nicegamepy_docker .

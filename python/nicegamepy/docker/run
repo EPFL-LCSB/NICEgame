@@ -1,0 +1,5 @@
+#!/bin/sh
+docker run 	--rm -it 			\
+        	-v $(pwd)/..:/nicegamepy \
+		-v $(pwd)/..:/home/nicegamepy/work \
+		nicegamepy_docker
